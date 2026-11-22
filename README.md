@@ -1,17 +1,22 @@
-# Weer & Zon
+# KNMI Weerapp — uploadbasis
 
-Een eenvoudige Nederlandstalige weerpagina met:
-- actuele temperatuur en gevoelstemperatuur
-- regenhoeveelheid en regenwaarschijnlijkheid
-- windrichting en windsnelheid
-- UV-index
-- zonsopkomst en zonsondergang
+Dit is een nieuwe, eenvoudige GitHub Pages-basis voor een Nederlandse weerapp.
 
-De pagina gebruikt Open-Meteo en heeft geen API-key nodig. Bij toestemming gebruikt hij de locatie van je browser; anders start hij met Tiel.
+## Uploaden naar GitHub
+1. Pak `knmi-weerapp-upload.zip` uit.
+2. Open je repository op GitHub.
+3. Kies **Add file → Upload files**.
+4. Upload `index.html`, `style.css`, `app.js` en `README.md`.
+5. Commit de wijzigingen.
+6. Zet GitHub Pages aan via **Settings → Pages** (deploy vanaf de `main`-branch, root).
 
-## GitHub upload
-1. Open je GitHub-repository.
-2. Kies **Add file → Upload files**.
-3. Upload `index.html` (of upload de ZIP en pak deze lokaal eerst uit).
-4. Commit de wijzigingen.
-5. Voor GitHub Pages: Settings → Pages → deploy from branch → selecteer `main` en `/ (root)`.
+## KNMI API
+De KNMI Open Data API gebruikt een API-sleutel in de `Authorization`-header. Zet die sleutel niet in `app.js` of andere openbare frontendbestanden. Gebruik voor een echte live koppeling een kleine server-side proxy (bijvoorbeeld een beveiligde serverless functie) en GitHub Secrets.
+
+De Open Data API is bestand-gebaseerd. De juiste dataset, versie en bestandsparser moeten gekozen worden voordat actuele meetwaarden betrouwbaar kunnen worden getoond.
+
+Documentatie:
+- https://developer.dataplatform.knmi.nl/open-data-api
+- https://developer.dataplatform.knmi.nl/apis/
+
+Dit ZIP-bestand is dus een uploadbare startversie, nog geen volledig werkende live KNMI-feed.
