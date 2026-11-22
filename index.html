@@ -43,7 +43,9 @@ const weatherInfo=c=>{
 };
 const windDirection=d=>{const names=["N","NO","O","ZO","Z","ZW","W","NW"];return names[Math.round(d/45)%8]};
 function dateText(){return new Intl.DateTimeFormat("nl-NL",{weekday:"long",day:"numeric",month:"long",year:"numeric"}).format(new Date())}
-async function loadWeather(lat=51.89,lon=5.43,name="Tiel"){
+let currentLat=51.89,currentLon=5.43,currentName="Tiel";
+async function loadWeather(lat=currentLat,lon=currentLon,name=currentName){
+ currentLat=lat; currentLon=lon; currentName=name;
  $("date").textContent=dateText();$("status").textContent="Weergegevens laden…";
  try{
  const url=`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,relative_humidity_2m,apparent_temperature,precipitation,weather_code,wind_speed_10m,wind_direction_10m&daily=precipitation_sum,precipitation_probability_max,sunrise,sunset,uv_index_max&timezone=auto`;
@@ -58,7 +60,7 @@ async function loadWeather(lat=51.89,lon=5.43,name="Tiel"){
  $("status").textContent="Laatste update: "+new Intl.DateTimeFormat("nl-NL",{hour:"2-digit",minute:"2-digit"}).format(new Date());
  }catch(e){$("status").textContent="Het weer kon niet worden geladen. Controleer je internetverbinding en probeer opnieuw."}
 }
-$("refresh").addEventListener("click",()=>loadWeather());
+$("refresh").addEventListener("click",()=>loadWeather(currentLat,currentLon,currentName));
 if(navigator.geolocation){navigator.geolocation.getCurrentPosition(p=>loadWeather(p.coords.latitude,p.coords.longitude,"Weer bij jou"),()=>loadWeather(),{timeout:7000});}else loadWeather();
 </script>
 </body></html>
